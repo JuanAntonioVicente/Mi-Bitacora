@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "./App.css";
 import Summary from "./components/Summary.jsx";
 import ListCard from "./components/ListCard.jsx";
@@ -73,6 +73,11 @@ function App() {
       })
     );
   }
+  const panelRef = useRef(null);
+  function seleccionarYSubir (id) {
+    setListaSeleccionada(id)
+    panelRef.current.scrollIntoView({ behavior: "smooth", block:"center" });
+  }
 
   return (
     <div className="app">
@@ -101,7 +106,7 @@ function App() {
       </div>
       <ListForm onCrear={agregarLista} />
       {listaSeleccionada ? (
-        <div className="entradas-panel" style={{ borderLeft: "3px solid" + listaActual.color }}>
+        <div className="entradas-panel" style={{ borderLeft: "3px solid" + listaActual.color }} ref={panelRef}>
           <div className="entradas-titulo">Entradas</div>
           {entradasFiltradas.map((entrada) => (
             <EntryCard key={entrada.id} entrada={entrada} onBorrar={borrarEntrada}
@@ -114,7 +119,7 @@ function App() {
           <p className="app-sin-seleccion">Selecciona una lista para ver y añadir entradas</p>
         )
       )}
-      <Summary listas={listas} entradas={entradas} mes={mes} />
+      <Summary listas={listas} entradas={entradas} mes={mes} onSeleccionar={seleccionarYSubir} />
       <Calendar listas={listas} entradas={entradas} mes={mes} setMes={setMes} />
     </div>
   );

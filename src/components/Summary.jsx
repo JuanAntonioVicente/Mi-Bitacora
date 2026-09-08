@@ -1,6 +1,6 @@
 import "./Summary.css";
 
-function Summary({ listas, entradas, mes }) {
+function Summary({ listas, entradas, mes, onSeleccionar }) {
     const actual = mes.getFullYear() + "-" + String(mes.getMonth() + 1).padStart(2, "0");
     return (
         <>
@@ -11,7 +11,7 @@ function Summary({ listas, entradas, mes }) {
                         {listas.map((lista) => {
                             const total = entradas.filter((entrada) => entrada.listaId === lista.id).length;
                             return (
-                                <div className="summary-card" key={lista.id}>
+                                <div className="summary-card" key={lista.id} onClick={() => onSeleccionar(lista.id)}>
                                     <div className="summary-nombre">{lista.nombre}</div>
                                     <div className="summary-total" style={{ color: lista.color }}>{total}</div>
                                 </div>
@@ -23,7 +23,7 @@ function Summary({ listas, entradas, mes }) {
                         {listas.map((lista) => {
                             const total = entradas.filter((entrada) => entrada.listaId === lista.id && entrada.fecha.slice(0, 7) === actual).length;
                             return (
-                                <div className="summary-card" key={lista.id}>
+                                <div className="summary-card" key={lista.id} onClick={() => onSeleccionar(lista.id)}>
                                     <div className="summary-nombre">{lista.nombre}</div>
                                     <div className="summary-total" style={{ color: lista.color }}>{total}</div>
                                 </div>
