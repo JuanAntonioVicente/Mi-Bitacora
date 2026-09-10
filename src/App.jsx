@@ -107,7 +107,7 @@ function App() {
       <ListForm onCrear={agregarLista} />
       {listaSeleccionada ? (
         <div className="entradas-panel" style={{ borderLeft: "3px solid" + listaActual.color }} ref={panelRef}>
-          <div className="entradas-titulo">Entradas</div>
+          <div className="entradas-titulo">Entradas de {listaActual.nombre}</div>
           {entradasFiltradas.map((entrada) => (
             <EntryCard key={entrada.id} entrada={entrada} onBorrar={borrarEntrada}
               onEditar={editarEntradas} entradaEnEdicion={entradaEnEdicion} setEntradaEnEdicion={setEntradaEnEdicion} />
