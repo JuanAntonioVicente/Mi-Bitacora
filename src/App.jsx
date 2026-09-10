@@ -6,6 +6,7 @@ import ListForm from "./components/ListForm.jsx";
 import EntryForm from "./components/EntryForm.jsx";
 import Calendar from "./components/Calendar.jsx";
 import EntryCard from "./components/EntryCard.jsx";
+import Logo from "./components/logo.jsx";
 
 function App() {
   const [listas, setListas] = useState([]);
@@ -46,11 +47,11 @@ function App() {
   const entradasFiltradas = entradas
     .filter((entrada) => entrada.listaId === listaSeleccionada)
     .sort((a, b) => b.fecha.localeCompare(a.fecha));
-  function editarLista(id, nuevoNombre) {
+  function editarLista(id, nuevoNombre, nuevoColor) {
     setListas(
       listas.map((lista) => {
         if (lista.id === id) {
-          return { ...lista, nombre: nuevoNombre };
+          return { ...lista, nombre: nuevoNombre, color: nuevoColor };
         }
         return lista;
       })
@@ -74,14 +75,19 @@ function App() {
     );
   }
   const panelRef = useRef(null);
-  function seleccionarYSubir (id) {
+  function seleccionarYSubir(id) {
     setListaSeleccionada(id)
-    panelRef.current.scrollIntoView({ behavior: "smooth", block:"center" });
+    panelRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
   }
 
   return (
     <div className="app">
-      <h1 className="app-titulo">Is She Right?</h1>
+      <div className="app-cabecera">
+        <Logo />
+        <h1 className="app-titulo">
+          Mi <span className="app-titulo-destacado">Bitácora</span>
+        </h1>
+      </div>
       {listas.length > 0 ? (
         <p className="app-subtitulo">
           Tienes {listas.length} {listas.length === 1 ? "lista" : "listas"}

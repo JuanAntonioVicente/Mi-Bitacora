@@ -5,17 +5,35 @@
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
+.app-cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 2rem;
+}
+
 .app-titulo {
-  font-size: 20px;
-  font-weight: 500;
-  color: #e8e8ea;
+  font-family: "Georgia", "Times New Roman", serif;
+  font-size: 32px;
+  font-weight: 400;
+  color: #8b8f96;
+  letter-spacing: -0.5px;
   margin: 0;
 }
 
+.app-titulo-destacado {
+  font-weight: 700;
+  background: linear-gradient(180deg, #ffffff 0%, #9b8ef0 130%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 .app-subtitulo {
-  font-size: 13px;
-  color: #8b8f96;
-  margin: 2px 0 1.5rem 0;
+  font-size: 15px;
+  color: #b4b8c0;
+  margin: 0 0 10px 0;
 }
 
 .app-vacio {
