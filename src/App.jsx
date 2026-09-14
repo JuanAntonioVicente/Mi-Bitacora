@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./App.css";
 import Summary from "./components/Summary.jsx";
 import ListCard from "./components/ListCard.jsx";
@@ -6,7 +6,7 @@ import ListForm from "./components/ListForm.jsx";
 import EntryForm from "./components/EntryForm.jsx";
 import Calendar from "./components/Calendar.jsx";
 import EntryCard from "./components/EntryCard.jsx";
-import Logo from "./components/logo.jsx";
+import Logo from "./components/Logo.jsx";
 
 function App() {
   const [listas, setListas] = useState([]);
@@ -16,12 +16,13 @@ function App() {
   const [entradaEnEdicion, setEntradaEnEdicion] = useState(null);
   const [listaEnEdicion, setListaEnEdicion] = useState(null);
   function agregarLista(nombre, color) {
-    const nuevaLista = {
-      id: Date.now(),
-      nombre: nombre,
-      color: color,
-    };
-    setListas([...listas, nuevaLista]);
+    fetch("http://localhost:3001/listas", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nombre: nombre, color: color })
+    })
+      .then((res) => res.json())
+      .then((nuevaLista) => setListas([...listas, nuevaLista]));
   }
   function agregarEntrada(fecha, nombre, tiempo, puntuacion) {
     const nuevaEntrada = {
@@ -38,24 +39,30 @@ function App() {
     setEntradas(entradas.filter((entrada) => entrada.id !== id));
   }
   function borrarLista(id) {
-    setListas(listas.filter((lista) => lista.id !== id));
-    setEntradas(entradas.filter((entrada) => entrada.listaId !== id));
-    if (id === listaSeleccionada) {
-      setListaSeleccionada(null);
-    }
+    fetch("http://localhost:3001/listas/" + id, {
+      method: "DELETE"
+    })
+      .then(() => {
+        setListas(listas.filter((lista) => lista.id !== id));
+        setEntradas(entradas.filter((entrada) => entrada.listaId !== id));
+        if (id === listaSeleccionada) {
+          setListaSeleccionada(null);
+        }
+      });
   }
   const entradasFiltradas = entradas
     .filter((entrada) => entrada.listaId === listaSeleccionada)
     .sort((a, b) => b.fecha.localeCompare(a.fecha));
   function editarLista(id, nuevoNombre, nuevoColor) {
-    setListas(
-      listas.map((lista) => {
-        if (lista.id === id) {
-          return { ...lista, nombre: nuevoNombre, color: nuevoColor };
-        }
-        return lista;
-      })
-    );
+    fetch("http://localhost:3001/listas/" + id, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nombre: nuevoNombre, color: nuevoColor })
+    })
+      .then((res) => res.json())
+      .then((listaEditada) =>
+        setListas(listas.map((lista) => (lista.id === id ? listaEditada : lista)))
+      );
   }
   const listaActual = listas.find((lista) => lista.id === listaSeleccionada);
   function editarEntradas(id, nuevaFecha, nuevoNombre, nuevoTiempo, nuevaPuntuacion) {
@@ -79,6 +86,15 @@ function App() {
     setListaSeleccionada(id)
     panelRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
   }
+
+  useEffect(() => {
+    fetch("http://localhost:3001/listas")
+      .then((res) => res.json())
+      .then((datos) => setListas(datos));
+    fetch("http://localhost:3001/entradas")
+      .then((res) => res.json())
+      .then((datos) => setEntradas(datos));
+  }, []);
 
   return (
     <div className="app">
