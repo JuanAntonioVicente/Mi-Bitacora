@@ -25,18 +25,21 @@ function App() {
       .then((nuevaLista) => setListas([...listas, nuevaLista]));
   }
   function agregarEntrada(fecha, nombre, tiempo, puntuacion) {
-    const nuevaEntrada = {
-      id: Date.now(),
-      listaId: listaSeleccionada,
-      fecha: fecha,
-      nombre: nombre,
-      tiempo: tiempo,
-      puntuacion: puntuacion,
-    };
-    setEntradas([...entradas, nuevaEntrada]);
+    fetch("http://localhost:3001/entradas", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ listaid: listaSeleccionada, fecha: fecha, nombre: nombre, tiempo: tiempo, puntuacion: puntuacion })
+    })
+      .then((res) => res.json())
+      .then((nuevaEntrada) => setEntradas([...entradas, nuevaEntrada]));
   }
   function borrarEntrada(id) {
-    setEntradas(entradas.filter((entrada) => entrada.id !== id));
+    fetch("http://localhost:3001/entradas/" + id, {
+      method: "DELETE"
+    })
+    .then(() => {
+      setEntradas(entradas.filter((entrada) => entrada.id !== id));
+    })
   }
   function borrarLista(id) {
     fetch("http://localhost:3001/listas/" + id, {
