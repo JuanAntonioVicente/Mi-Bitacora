@@ -1,0 +1,35 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: juan
+      POSTGRES_PASSWORD: bitacora123
+      POSTGRES_DB: bitacora
+    ports:
+      - "5433:5432"
+    volumes:
+      - datos_db:/var/lib/postgresql/data
+      - ./backend/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+
+  backend:
+    build: ./backend
+    environment:
+      DB_USER: juan
+      DB_HOST: db
+      DB_DATABASE: bitacora
+      DB_PASSWORD: bitacora123
+      DB_PORT: 5432
+    ports:
+      - "3001:3001"
+    depends_on:
+      - db
+
+  frontend:
+    build: .
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+volumes:
+  datos_db:

@@ -7,6 +7,8 @@ import EntryForm from "./components/EntryForm.jsx";
 import Calendar from "./components/Calendar.jsx";
 import EntryCard from "./components/EntryCard.jsx";
 import Logo from "./components/Logo.jsx";
+const API = import.meta.env.VITE_API_URL;
+
 
 function App() {
   const [listas, setListas] = useState([]);
@@ -16,7 +18,7 @@ function App() {
   const [entradaEnEdicion, setEntradaEnEdicion] = useState(null);
   const [listaEnEdicion, setListaEnEdicion] = useState(null);
   function agregarLista(nombre, color) {
-    fetch("http://localhost:3001/listas", {
+    fetch(API + "/listas", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nombre: nombre, color: color })
@@ -25,7 +27,7 @@ function App() {
       .then((nuevaLista) => setListas([...listas, nuevaLista]));
   }
   function agregarEntrada(fecha, nombre, tiempo, puntuacion) {
-    fetch("http://localhost:3001/entradas", {
+    fetch(API + "/entradas", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ listaid: listaSeleccionada, fecha: fecha, nombre: nombre, tiempo: tiempo, puntuacion: puntuacion })
@@ -34,7 +36,7 @@ function App() {
       .then((nuevaEntrada) => setEntradas([...entradas, nuevaEntrada]));
   }
   function borrarEntrada(id) {
-    fetch("http://localhost:3001/entradas/" + id, {
+    fetch(API + "/entradas/" + id, {
       method: "DELETE"
     })
       .then(() => {
@@ -42,7 +44,7 @@ function App() {
       })
   }
   function borrarLista(id) {
-    fetch("http://localhost:3001/listas/" + id, {
+    fetch(API + "/listas/" + id, {
       method: "DELETE"
     })
       .then(() => {
@@ -57,7 +59,7 @@ function App() {
     .filter((entrada) => entrada.listaId === listaSeleccionada)
     .sort((a, b) => b.fecha.localeCompare(a.fecha));
   function editarLista(id, nuevoNombre, nuevoColor) {
-    fetch("http://localhost:3001/listas/" + id, {
+    fetch(API + "/listas/" + id, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nombre: nuevoNombre, color: nuevoColor })
@@ -69,7 +71,7 @@ function App() {
   }
   const listaActual = listas.find((lista) => lista.id === listaSeleccionada);
   function editarEntradas(id, nuevaFecha, nuevoNombre, nuevoTiempo, nuevaPuntuacion) {
-    fetch("http://localhost:3001/entradas/" + id, {
+    fetch(API + "/entradas/" + id, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ fecha: nuevaFecha, nombre: nuevoNombre, tiempo: nuevoTiempo, puntuacion: nuevaPuntuacion })
@@ -86,10 +88,10 @@ function App() {
   }
 
   useEffect(() => {
-    fetch("http://localhost:3001/listas")
+    fetch(API + "/listas")
       .then((res) => res.json())
       .then((datos) => setListas(datos));
-    fetch("http://localhost:3001/entradas")
+    fetch(API + "/entradas")
       .then((res) => res.json())
       .then((datos) => setEntradas(datos));
   }, []);
