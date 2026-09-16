@@ -71,27 +71,13 @@ function App() {
   function editarEntradas(id, nuevaFecha, nuevoNombre, nuevoTiempo, nuevaPuntuacion) {
     fetch("http://localhost:3001/entradas/" + id, {
       method: "PUT",
-      headers: { "Conten-Type": "application/json" },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ fecha: nuevaFecha, nombre: nuevoNombre, tiempo: nuevoTiempo, puntuacion: nuevaPuntuacion })
     })
       .then((res) => res.json())
       .then((entradaEditada) =>
         setEntradas(entradas.map((entrada) => (entrada.id === id ? entradaEditada : entrada)))
       );
-    setEntradas(
-      entradas.map((entrada) => {
-        if (entrada.id === id) {
-          return {
-            ...entrada,
-            fecha: nuevaFecha,
-            nombre: nuevoNombre,
-            tiempo: nuevoTiempo,
-            puntuacion: nuevaPuntuacion,
-          };
-        }
-        return entrada;
-      })
-    );
   }
   const panelRef = useRef(null);
   function seleccionarYSubir(id) {
