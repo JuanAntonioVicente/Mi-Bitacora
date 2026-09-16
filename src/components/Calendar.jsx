@@ -60,7 +60,7 @@ function Calendar({ listas, entradas, mes, setMes }) {
                     const encontrarEntradas = entradas.filter((mismaEntrada) => mismaEntrada.fecha === fecha);
                     const esHoy = year === yearHoy && numeroMes === mesHoy && dia === diaHoy;
                     return (
-                        <div className={"calendar-celda" + (esHoy ? "calendar-celda-hoy" : "")} key={dia}>
+                        <div className={"calendar-celda " + (esHoy ? "calendar-celda-hoy" : "")} key={dia}>
                             <div className="calendar-dia">{dia}</div>
                             {encontrarEntradas.map((entradaDelDia) => {
                                 const laLista = listas.find((lista) => lista.id === entradaDelDia.listaId);
