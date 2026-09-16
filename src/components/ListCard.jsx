@@ -67,7 +67,8 @@ function ListCard({ lista, entradas, onSeleccionar, onBorrar, onEditar, listaEnE
           </button>
         )}
         {editando && !confirmar && (
-          <button className="list-card-boton" onClick={() => {
+          <button className="list-card-boton" onClick={(e) => {
+            e.stopPropagation();
             setNombreEditado(lista.nombre);
             setColorEditado(lista.color);
             setListaEnEdicion(null);

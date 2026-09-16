@@ -17,7 +17,7 @@ function Summary({ listas, entradas, mes, onSeleccionar }) {
                                 </div>
                             );
                         })}
-                    </div >
+                    </div>
                     <div className="summary-titulo">Resumen {mes.toLocaleDateString("es-ES", { month: "long", year: "numeric" })}</div>
                     <div className="summary-grid">
                         {listas.map((lista) => {
@@ -29,7 +29,7 @@ function Summary({ listas, entradas, mes, onSeleccionar }) {
                                 </div>
                             );
                         })}
-                    </div >
+                    </div>
                 </>
             )}
         </>

@@ -37,9 +37,9 @@ function App() {
     fetch("http://localhost:3001/entradas/" + id, {
       method: "DELETE"
     })
-    .then(() => {
-      setEntradas(entradas.filter((entrada) => entrada.id !== id));
-    })
+      .then(() => {
+        setEntradas(entradas.filter((entrada) => entrada.id !== id));
+      })
   }
   function borrarLista(id) {
     fetch("http://localhost:3001/listas/" + id, {
@@ -69,6 +69,15 @@ function App() {
   }
   const listaActual = listas.find((lista) => lista.id === listaSeleccionada);
   function editarEntradas(id, nuevaFecha, nuevoNombre, nuevoTiempo, nuevaPuntuacion) {
+    fetch("http://localhost:3001/entradas/" + id, {
+      method: "PUT",
+      headers: { "Conten-Type": "application/json" },
+      body: JSON.stringify({ fecha: nuevaFecha, nombre: nuevoNombre, tiempo: nuevoTiempo, puntuacion: nuevaPuntuacion })
+    })
+      .then((res) => res.json())
+      .then((entradaEditada) =>
+        setEntradas(entradas.map((entrada) => (entrada.id === id ? entradaEditada : entrada)))
+      );
     setEntradas(
       entradas.map((entrada) => {
         if (entrada.id === id) {
@@ -131,7 +140,7 @@ function App() {
       </div>
       <ListForm onCrear={agregarLista} />
       {listaSeleccionada ? (
-        <div className="entradas-panel" style={{ borderLeft: "3px solid" + listaActual.color }} ref={panelRef}>
+        <div className="entradas-panel" style={{ borderLeft: "3px solid " + listaActual.color }} ref={panelRef}>
           <div className="entradas-titulo">Entradas de {listaActual.nombre}</div>
           {entradasFiltradas.map((entrada) => (
             <EntryCard key={entrada.id} entrada={entrada} onBorrar={borrarEntrada}

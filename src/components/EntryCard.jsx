@@ -120,7 +120,6 @@ function EntryCard({ entrada, onBorrar, onEditar, entradaEnEdicion, setEntradaEn
               }}>
               Cancelar
             </button>
-            {error && <p className="entry-form-error">{error}</p>}
           </div>
         )}
       </span>

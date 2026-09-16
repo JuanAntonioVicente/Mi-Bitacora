@@ -60,7 +60,7 @@ function Calendar({ listas, entradas, mes, setMes }) {
                     const encontrarEntradas = entradas.filter((mismaEntrada) => mismaEntrada.fecha === fecha);
                     const esHoy = year === yearHoy && numeroMes === mesHoy && dia === diaHoy;
                     return (
-                        <div className={"calendar-celda " + (esHoy ? " calendar-celda-hoy" : "")} key={dia}>
+                        <div className={"calendar-celda" + (esHoy ? "calendar-celda-hoy" : "")} key={dia}>
                             <div className="calendar-dia">{dia}</div>
                             {encontrarEntradas.map((entradaDelDia) => {
                                 const laLista = listas.find((lista) => lista.id === entradaDelDia.listaId);
@@ -72,12 +72,12 @@ function Calendar({ listas, entradas, mes, setMes }) {
                                                 <span className="calendar-entrada-nombre">{entradaMostrada.nombre}</span>
                                                 {entradaMostrada.tiempo && (
                                                     <span className="calendar-entrada-tiempo">{entradaMostrada.tiempo}
-                                                        <span className="entrada-hora">h</span>
+                                                        <span className="calendar-hora">h</span>
                                                     </span>
                                                 )}
                                                 {entradaMostrada.puntuacion && (
                                                     <span className="calendar-entrada-puntuacion">{entradaMostrada.puntuacion}
-                                                        <span className="entrada-estrella">★</span>
+                                                        <span className="calendar-estrella">★</span>
                                                     </span>
                                                 )}
                                             </div>
