@@ -14,11 +14,7 @@ services:
   backend:
     build: ./backend
     environment:
-      DB_USER: juan
-      DB_HOST: db
-      DB_DATABASE: bitacora
-      DB_PASSWORD: bitacora123
-      DB_PORT: 5432
+      DATABASE_URL: postgresql://juan:bitacora123@db:5432/bitacora
     ports:
       - "3001:3001"
     depends_on:
