@@ -6,9 +6,8 @@ import ListForm from "./components/ListForm.jsx";
 import EntryForm from "./components/EntryForm.jsx";
 import Calendar from "./components/Calendar.jsx";
 import EntryCard from "./components/EntryCard.jsx";
+import { obtenerListas, obtenerEntradas, apiCrearLista, apiCrearEntrada, apiBorrarLista, apiBorrarEntrada, apiEditarLista, apiEditarEntradas } from "./api.js"; 
 import Logo from "./components/Logo.jsx";
-const API = import.meta.env.VITE_API_URL;
-
 
 function App() {
   const [listas, setListas] = useState([]);
@@ -18,65 +17,41 @@ function App() {
   const [entradaEnEdicion, setEntradaEnEdicion] = useState(null);
   const [listaEnEdicion, setListaEnEdicion] = useState(null);
   function agregarLista(nombre, color) {
-    fetch(API + "/listas", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ nombre: nombre, color: color })
-    })
-      .then((res) => res.json())
+    apiCrearLista(nombre, color)
       .then((nuevaLista) => setListas([...listas, nuevaLista]));
   }
   function agregarEntrada(fecha, nombre, tiempo, puntuacion) {
-    fetch(API + "/entradas", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ listaid: listaSeleccionada, fecha: fecha, nombre: nombre, tiempo: tiempo, puntuacion: puntuacion })
-    })
-      .then((res) => res.json())
+    apiCrearEntrada(listaSeleccionada, fecha, nombre, tiempo, puntuacion)
       .then((nuevaEntrada) => setEntradas([...entradas, nuevaEntrada]));
   }
   function borrarEntrada(id) {
-    fetch(API + "/entradas/" + id, {
-      method: "DELETE"
-    })
+    apiBorrarEntrada(id)
       .then(() => {
         setEntradas(entradas.filter((entrada) => entrada.id !== id));
       })
   }
   function borrarLista(id) {
-    fetch(API + "/listas/" + id, {
-      method: "DELETE"
-    })
+    apiBorrarLista(id)
       .then(() => {
         setListas(listas.filter((lista) => lista.id !== id));
         setEntradas(entradas.filter((entrada) => entrada.listaId !== id));
         if (id === listaSeleccionada) {
           setListaSeleccionada(null);
         }
-      });
+      })
   }
   const entradasFiltradas = entradas
     .filter((entrada) => entrada.listaId === listaSeleccionada)
     .sort((a, b) => b.fecha.localeCompare(a.fecha));
   function editarLista(id, nuevoNombre, nuevoColor) {
-    fetch(API + "/listas/" + id, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ nombre: nuevoNombre, color: nuevoColor })
-    })
-      .then((res) => res.json())
+    apiEditarLista(id, nuevoNombre, nuevoColor)
       .then((listaEditada) =>
         setListas(listas.map((lista) => (lista.id === id ? listaEditada : lista)))
       );
   }
   const listaActual = listas.find((lista) => lista.id === listaSeleccionada);
   function editarEntradas(id, nuevaFecha, nuevoNombre, nuevoTiempo, nuevaPuntuacion) {
-    fetch(API + "/entradas/" + id, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ fecha: nuevaFecha, nombre: nuevoNombre, tiempo: nuevoTiempo, puntuacion: nuevaPuntuacion })
-    })
-      .then((res) => res.json())
+    apiEditarEntradas(id, nuevaFecha, nuevoNombre, nuevoTiempo, nuevaPuntuacion)
       .then((entradaEditada) =>
         setEntradas(entradas.map((entrada) => (entrada.id === id ? entradaEditada : entrada)))
       );
@@ -88,12 +63,8 @@ function App() {
   }
 
   useEffect(() => {
-    fetch(API + "/listas")
-      .then((res) => res.json())
-      .then((datos) => setListas(datos));
-    fetch(API + "/entradas")
-      .then((res) => res.json())
-      .then((datos) => setEntradas(datos));
+    obtenerListas().then((datos) => setListas(datos));
+    obtenerEntradas().then((datos) => setEntradas(datos));
   }, []);
 
   return (
