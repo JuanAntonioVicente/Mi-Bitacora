@@ -6,7 +6,7 @@ import ListForm from "./components/ListForm.jsx";
 import EntryForm from "./components/EntryForm.jsx";
 import Calendar from "./components/Calendar.jsx";
 import EntryCard from "./components/EntryCard.jsx";
-import { obtenerListas, obtenerEntradas, apiCrearLista, apiCrearEntrada, apiBorrarLista, apiBorrarEntrada, apiEditarLista, apiEditarEntradas } from "./api.js"; 
+import { obtenerListas, obtenerEntradas, apiCrearLista, apiCrearEntrada, apiBorrarLista, apiBorrarEntrada, apiEditarLista, apiEditarEntradas } from "./api.js";
 // import { obtenerListas, obtenerEntradas, apiCrearLista, apiCrearEntrada, apiBorrarLista, apiBorrarEntrada, apiEditarLista, apiEditarEntradas } from "./local.js";
 import Logo from "./components/Logo.jsx";
 
@@ -72,9 +72,12 @@ function App() {
     <div className="app">
       <div className="app-cabecera">
         <Logo />
-        <h1 className="app-titulo">
-          Mi <span className="app-titulo-destacado">Bitácora</span>
-        </h1>
+        <div>
+          <h1 className="app-titulo">
+            Mi <span className="app-titulo-destacado">Bitácora</span>
+          </h1>
+          <p className="app-yo">By JuanAntonioVR</p>
+        </div>
       </div>
       {listas.length > 0 ? (
         <p className="app-subtitulo">
