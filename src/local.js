@@ -91,3 +91,9 @@ export function apiEditarEntradas(id, nuevaFecha, nuevoNombre, nuevoTiempo, nuev
     guardarEntradas(entradasEditadas);
     return Promise.resolve(entradasEditadas.find((entrada) => entrada.id === id));
 }
+
+export function reemplazarDatos(listas, entradas) {
+  guardarListas(listas);
+  guardarEntradas(entradas);
+  return Promise.resolve();
+}

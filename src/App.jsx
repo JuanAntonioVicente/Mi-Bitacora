@@ -6,8 +6,8 @@ import ListForm from "./components/ListForm.jsx";
 import EntryForm from "./components/EntryForm.jsx";
 import Calendar from "./components/Calendar.jsx";
 import EntryCard from "./components/EntryCard.jsx";
-import { obtenerListas, obtenerEntradas, apiCrearLista, apiCrearEntrada, apiBorrarLista, apiBorrarEntrada, apiEditarLista, apiEditarEntradas } from "./api.js";
-// import { obtenerListas, obtenerEntradas, apiCrearLista, apiCrearEntrada, apiBorrarLista, apiBorrarEntrada, apiEditarLista, apiEditarEntradas } from "./local.js";
+// import { obtenerListas, obtenerEntradas, apiCrearLista, apiCrearEntrada, apiBorrarLista, apiBorrarEntrada, apiEditarLista, apiEditarEntradas } from "./api.js";
+import { obtenerListas, obtenerEntradas, apiCrearLista, apiCrearEntrada, apiBorrarLista, apiBorrarEntrada, apiEditarLista, apiEditarEntradas, reemplazarDatos } from "./local.js";
 import Logo from "./components/Logo.jsx";
 
 function App() {
@@ -68,6 +68,40 @@ function App() {
     obtenerEntradas().then((datos) => setEntradas(datos));
   }, []);
 
+  function exportarDatos() {
+    Promise.all([obtenerListas(), obtenerEntradas()])
+      .then((resultados) => {
+        const listasExportadas = resultados[0];
+        const entradasExportadas = resultados[1];
+        const datos = { listas: listasExportadas, entradas: entradasExportadas };
+        const texto = JSON.stringify(datos, null, 2);
+        const blob = new Blob([texto], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const enlace = document.createElement("a");
+        enlace.href = url;
+        enlace.download = "mi-bitacora.json";
+        enlace.click();
+        URL.revokeObjectURL(url);
+      });
+  }
+
+  function importarDatos(e) {
+    const archivo = e.target.files[0];
+    const lector = new FileReader();
+    lector.onload = () => {
+      const texto = lector.result;
+      const datosImportados = JSON.parse(texto);
+      if (!confirm("Al importar se borrarán tus listas y entradas actuales. ¿Quieres continuar?")) {
+        return;
+      }
+      reemplazarDatos(datosImportados.listas, datosImportados.entradas).then(() => {
+        setListas(datosImportados.listas);
+        setEntradas(datosImportados.entradas);
+      });
+    }
+    lector.readAsText(archivo);
+  }
+
   return (
     <div className="app">
       <div className="app-cabecera">
@@ -118,6 +152,11 @@ function App() {
       )}
       <Summary listas={listas} entradas={entradas} mes={mes} onSeleccionar={seleccionarYSubir} />
       <Calendar listas={listas} entradas={entradas} mes={mes} setMes={setMes} />
+      <div className="app-datos">
+        <button className="app-datos-boton" onClick={exportarDatos}>Exportar datos</button>
+        <input type="file" onChange={importarDatos} />
+        <p className="app-datos-texto">Guarda una copia de tus listas y entradas</p>
+      </div>
     </div>
   );
 }
