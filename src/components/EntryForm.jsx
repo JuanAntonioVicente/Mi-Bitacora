@@ -1,8 +1,16 @@
 import { useState } from "react";
 import "./EntryForm.css";
 
+function fechaHoy() {
+  const hoy = new Date();
+  const yearHoy = hoy.getFullYear();
+  const mesHoy = String(hoy.getMonth() + 1).padStart(2, "0");
+  const diaHoy = String(hoy.getDate()).padStart(2, "0");
+  return yearHoy + "-" + mesHoy + "-" + diaHoy;
+}
+
 function EntryForm({ onCrear }) {
-    const [fecha, setFecha] = useState("");
+    const [fecha, setFecha] = useState(fechaHoy);
     const [nombre, setNombre] = useState("");
     const [tiempo, setTiempo] = useState("");
     const [puntuacion, setPuntuacion] = useState("");
@@ -14,7 +22,7 @@ function EntryForm({ onCrear }) {
             return;
         }
         onCrear(fecha, nombre, tiempo, puntuacion);
-        setFecha("");
+        setFecha(fechaHoy());
         setNombre("");
         setTiempo("");
         setPuntuacion("");
