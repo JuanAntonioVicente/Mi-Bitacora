@@ -128,5 +128,25 @@
   font-weight: 400;
   color: #8b8f96;
   margin-left: 2px;
+}
 
+.calendar-grid > :nth-child(7n + 1) .calendar-tooltip,
+.calendar-grid > :nth-child(7n + 2) .calendar-tooltip {
+  left: 0;
+  transform: none;
+}
+
+.calendar-grid > :nth-child(7n) .calendar-tooltip,
+.calendar-grid > :nth-child(7n + 6) .calendar-tooltip {
+  left: auto;
+  right: 0;
+  transform: none;
+}
+
+@media (max-width: 600px) {
+  .calendar-tooltip {
+    white-space: normal;
+    width: max-content;
+    max-width: 200px;
+  }
 }

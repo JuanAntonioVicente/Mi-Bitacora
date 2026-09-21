@@ -111,3 +111,38 @@
   border: none;
   border-radius: 4px;
 }
+
+@media (max-width: 600px) {
+  .list-card {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .list-card-editando {
+    flex-basis: 100%;
+  }
+
+  .list-card-input {
+    flex: 1;
+    min-width: 0;
+    font-size: 16px;
+  }
+
+  .list-card-acciones {
+    margin-left: auto;
+    flex-wrap: wrap;
+  }
+}
+
+@media (hover: none) {
+  .list-card-boton-borrar {
+    border-color: rgba(226, 75, 74, 0.35);
+    color: #c9706f;
+  }
+
+  .list-card-boton-guardar,
+  .list-card-boton-confirmar {
+    border-color: rgba(76, 175, 80, 0.35);
+    color: #72b875;
+  }
+}

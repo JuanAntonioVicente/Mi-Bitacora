@@ -1,4 +1,5 @@
 body {
   background-color: #12141a;
   color: #e8e8ea;
+  overflow-wrap: anywhere;
 }

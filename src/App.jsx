@@ -159,26 +159,28 @@ function App() {
         <button className="app-datos-boton" onClick={exportarDatos}>Exportar datos</button>
         <button className="app-datos-boton" onClick={() => setAvisoAlImportar(true)}>Importar datos</button>
         {avisoAlImportar && (
-          <div className="app-datos-aviso">
-            <p className="app-datos-aviso-texto">
-              Al importar se borrarán tus listas y entradas actuales.
-              <br />
-              <span className="app-datos-aviso-detalle"> ¿Quieres continuar? </span>
-            </p>
-            <div className="app-datos-aviso-botones">
-              <button
-                className="app-datos-boton app-datos-boton-peligro"
-                onClick={() => {
-                  importarRef.current.click();
-                  setAvisoAlImportar(false);
-                }}>
-                Confirmar
-              </button>
-              <button
-                className="app-datos-boton"
-                onClick={() => setAvisoAlImportar(false)}>
-                Cancelar
-              </button>
+          <div className="app-modal-fondo" onClick={() => setAvisoAlImportar(false)}>
+            <div className="app-datos-aviso" onClick={(e) => e.stopPropagation()}>
+              <p className="app-datos-aviso-texto">
+                Al importar se borrarán tus listas y entradas actuales.
+                <br />
+                <span className="app-datos-aviso-detalle">¿Quieres continuar?</span>
+              </p>
+              <div className="app-datos-aviso-botones">
+                <button
+                  className="app-datos-boton app-datos-boton-peligro"
+                  onClick={() => {
+                    importarRef.current.click();
+                    setAvisoAlImportar(false);
+                  }}>
+                  Confirmar
+                </button>
+                <button
+                  className="app-datos-boton"
+                  onClick={() => setAvisoAlImportar(false)}>
+                  Cancelar
+                </button>
+              </div>
             </div>
           </div>
         )}

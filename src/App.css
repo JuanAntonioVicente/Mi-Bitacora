@@ -83,7 +83,8 @@
   border: 1px solid #3a2a2e;
   border-radius: 8px;
   padding: 16px;
-  margin: 16px auto 0 auto;
+  margin: 0;
+  width: 100%;
   max-width: 420px;
 }
 
@@ -137,4 +138,22 @@
 
 .app-datos-aviso-detalle {
   color: #8b8f96;
+}
+
+.app-modal-fondo {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  z-index: 100;
+}
+
+@media (hover: none) {
+  .app-datos-boton-peligro {
+    border-color: rgba(226, 75, 74, 0.35);
+    color: #c9706f;
+  }
 }

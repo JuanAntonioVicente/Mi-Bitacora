@@ -25,18 +25,21 @@
   font-size: 12px;
   color: #6b6f77;
   min-width: 88px;
+  white-space: nowrap
 }
 
 .entrada-puntuacion {
   font-size: 15px;
   font-weight: 500;
   color: #e8e8ea;
+  white-space: nowrap
 }
 
 .entrada-tiempo {
   font-size: 15px;
   font-weight: 500;
   color: #e8e8ea;
+  white-space: nowrap
 }
 
 .entrada-derecha {
@@ -146,5 +149,44 @@
   font-weight: 400;
   color: #8b8f96;
   margin-left: 2px;
+}
 
+@media (max-width: 600px) {
+  .entrada-editando {
+    flex-basis: 100%;
+    flex-wrap: wrap;
+  }
+
+  .entrada-editando .entrada-input {
+    flex: 1 1 100%;
+    font-size: 16px;
+  }
+
+  .entrada-editando .entrada-input-tiempo,
+  .entrada-editando .entrada-input-puntuacion {
+    flex: 1 1 0;
+    width: auto;
+  }
+
+  .entrada-derecha {
+    margin-left: auto;
+    flex-wrap: wrap;
+  }
+
+  .entrada-texto {
+    flex-basis: 100%;
+  }
+}
+
+@media (hover: none) {
+  .entrada-borrar {
+    border-color: rgba(226, 75, 74, 0.35);
+    color: #c9706f;
+  }
+
+  .entrada-guardar,
+  .entrada-boton-confirmar {
+    border-color: rgba(76, 175, 80, 0.35);
+    color: #72b875;
+  }
 }

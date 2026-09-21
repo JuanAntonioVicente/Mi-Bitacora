@@ -58,3 +58,9 @@
 .list-form-boton:hover {
   background-color: #5b4cd6;
 }
+
+@media (max-width: 600px) {
+  .list-form-input {
+    font-size: 16px;
+  }
+}

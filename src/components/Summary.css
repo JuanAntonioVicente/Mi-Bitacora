@@ -7,10 +7,6 @@
   margin-top: 1.75rem;
 }
 
-.summary-titulo {
-  margin-top: 0;
-}
-
 .summary-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
