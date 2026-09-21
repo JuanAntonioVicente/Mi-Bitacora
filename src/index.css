@@ -3,3 +3,7 @@ body {
   color: #e8e8ea;
   overflow-wrap: anywhere;
 }
+
+button {
+  white-space: nowrap;
+}

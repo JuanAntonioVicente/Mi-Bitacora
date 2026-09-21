@@ -62,5 +62,11 @@
 @media (max-width: 600px) {
   .list-form-input {
     font-size: 16px;
+    min-width: 0;
+  }
+
+  .list-form-color,
+  .list-form-boton {
+    flex-shrink: 0;
   }
 }
