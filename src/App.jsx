@@ -185,7 +185,7 @@ function App() {
           </div>
         )}
         <input type="file" accept=".json" hidden onChange={importarDatos} ref={importarRef} />
-        <p className="app-datos-texto">Guarda una copia de tus listas y entradas solo en la versión móvil</p>
+        <p className="app-datos-texto">Guarda una copia de tus listas y entradas</p>
       </div>
     </div>
   );
