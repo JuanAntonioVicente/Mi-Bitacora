@@ -17,6 +17,7 @@ function App() {
   const [mes, setMes] = useState(new Date());
   const [entradaEnEdicion, setEntradaEnEdicion] = useState(null);
   const [listaEnEdicion, setListaEnEdicion] = useState(null);
+  const [avisoAlImportar, setAvisoAlImportar] = useState(false);
   function agregarLista(nombre, color) {
     apiCrearLista(nombre, color)
       .then((nuevaLista) => setListas([...listas, nuevaLista]));
@@ -58,6 +59,7 @@ function App() {
       );
   }
   const panelRef = useRef(null);
+  const importarRef = useRef(null);
   function seleccionarYSubir(id) {
     setListaSeleccionada(id)
     panelRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -87,19 +89,20 @@ function App() {
 
   function importarDatos(e) {
     const archivo = e.target.files[0];
+    if (!archivo) {
+      return;
+    }
     const lector = new FileReader();
     lector.onload = () => {
       const texto = lector.result;
       const datosImportados = JSON.parse(texto);
-      if (!confirm("Al importar se borrarán tus listas y entradas actuales. ¿Quieres continuar?")) {
-        return;
-      }
       reemplazarDatos(datosImportados.listas, datosImportados.entradas).then(() => {
         setListas(datosImportados.listas);
         setEntradas(datosImportados.entradas);
       });
     }
     lector.readAsText(archivo);
+    e.target.value = "";
   }
 
   return (
@@ -154,8 +157,33 @@ function App() {
       <Calendar listas={listas} entradas={entradas} mes={mes} setMes={setMes} />
       <div className="app-datos">
         <button className="app-datos-boton" onClick={exportarDatos}>Exportar datos</button>
-        <input type="file" onChange={importarDatos} />
-        <p className="app-datos-texto">Guarda una copia de tus listas y entradas</p>
+        <button className="app-datos-boton" onClick={() => setAvisoAlImportar(true)}>Importar datos</button>
+        {avisoAlImportar && (
+          <div className="app-datos-aviso">
+            <p className="app-datos-aviso-texto">
+              Al importar se borrarán tus listas y entradas actuales.
+              <br />
+              <span className="app-datos-aviso-detalle"> ¿Quieres continuar? </span>
+            </p>
+            <div className="app-datos-aviso-botones">
+              <button
+                className="app-datos-boton app-datos-boton-peligro"
+                onClick={() => {
+                  importarRef.current.click();
+                  setAvisoAlImportar(false);
+                }}>
+                Confirmar
+              </button>
+              <button
+                className="app-datos-boton"
+                onClick={() => setAvisoAlImportar(false)}>
+                Cancelar
+              </button>
+            </div>
+          </div>
+        )}
+        <input type="file" accept=".json" hidden onChange={importarDatos} ref={importarRef} />
+        <p className="app-datos-texto">Guarda una copia de tus listas y entradas solo en la versión móvil</p>
       </div>
     </div>
   );
