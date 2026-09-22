@@ -83,7 +83,7 @@ function EntryCard({ entrada, onBorrar, onEditar, entradaEnEdicion, setEntradaEn
             Guardar
           </button>
         )}
-        {!confirmar && (
+        {!confirmar && editar && (
           <button className="entrada-borrar" onClick={() => {
             setConfirmar(true);
             setError("");

@@ -56,7 +56,7 @@ function ListCard({ lista, entradas, onSeleccionar, onBorrar, onEditar, listaEnE
             Guardar
           </button>
         )}
-        {!confirmar && (
+        {!confirmar && editando && (
           <button
             className="list-card-boton list-card-boton-borrar"
             onClick={(e) => {
