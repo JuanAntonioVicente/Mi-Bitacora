@@ -100,7 +100,7 @@ mi-bitacora/
 Necesitas Node.js 20 o superior.
 
 ```bash
-git clone https://github.com/JuanAntonioVicente/mi-bitacora.git
+git clone https://github.com/JuanAntonioVicente/Mi-Bitacora.git
 cd mi-bitacora
 npm install
 npm run dev
