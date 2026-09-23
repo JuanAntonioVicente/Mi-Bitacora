@@ -23,8 +23,8 @@
     <th>Móvil</th>
   </tr>
   <tr>
-    <td valign="top"><img src="docs/escritorio.png" alt="Vista de escritorio" /></td>
-    <td valign="top"><img src="docs/movil.png" alt="Vista móvil" width="250" /></td>
+    <td valign="top"><img src="docs/Mi-Bitacora-Desktop.png" alt="Vista de escritorio" /></td>
+    <td valign="top"><img src="docs/Mi-Bitacora-Phone.png" alt="Vista móvil" width="250" /></td>
   </tr>
 </table>
 
