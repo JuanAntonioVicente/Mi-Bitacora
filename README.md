@@ -24,7 +24,7 @@
   </tr>
   <tr>
     <td valign="top"><img src="docs/Mi-Bitacora-Desktop.png" alt="Vista de escritorio" /></td>
-    <td valign="top"><img src="docs/Mi-Bitacora-Phone.png" alt="Vista móvil" width="250" /></td>
+    <td valign="top"><img src="docs/Mi-Bitacora-Phone.png" alt="Vista móvil" width="1080" /></td>
   </tr>
 </table>
 
