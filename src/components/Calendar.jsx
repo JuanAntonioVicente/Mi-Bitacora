@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./Calendar.css";
+import { formatearFecha } from "../fechas";
 
 function Calendar({ listas, entradas, mes, setMes }) {
     function mesAnterior() {
@@ -68,7 +69,7 @@ function Calendar({ listas, entradas, mes, setMes }) {
                                     <div className="calendar-marca-contenedor" key={entradaDelDia.id}>
                                         {entradaMostrada && entradaMostrada.id === entradaDelDia.id && (
                                             <div className="calendar-tooltip">
-                                                <span className="calendar-entrada-fecha">{entradaMostrada.fecha}</span>
+                                                <span className="calendar-entrada-fecha">{formatearFecha(entradaMostrada.fecha)}</span>
                                                 <span className="calendar-entrada-nombre">{entradaMostrada.nombre}</span>
                                                 {entradaMostrada.tiempo && (
                                                     <span className="calendar-entrada-tiempo">{entradaMostrada.tiempo}

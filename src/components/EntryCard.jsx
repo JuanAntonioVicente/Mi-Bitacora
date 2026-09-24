@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./EntryCard.css";
+import { formatearFecha } from "../fechas";
 
 function EntryCard({ entrada, onBorrar, onEditar, entradaEnEdicion, setEntradaEnEdicion }) {
   const [fechaEditada, setFechaEditada] = useState(entrada.fecha);
@@ -44,7 +45,7 @@ function EntryCard({ entrada, onBorrar, onEditar, entradaEnEdicion, setEntradaEn
         </span>
       ) : (
         <span className="entrada-texto">
-          <span className="entrada-fecha">{entrada.fecha}</span>
+          <span className="entrada-fecha">{formatearFecha(entrada.fecha)}</span>
           <span className="entrada-nombre">{entrada.nombre}</span>
           {entrada.tiempo && (
             <span className="entrada-tiempo">{entrada.tiempo}<span className="entrada-hora">h</span></span>

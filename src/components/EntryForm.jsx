@@ -1,13 +1,6 @@
 import { useState } from "react";
 import "./EntryForm.css";
-
-function fechaHoy() {
-  const hoy = new Date();
-  const yearHoy = hoy.getFullYear();
-  const mesHoy = String(hoy.getMonth() + 1).padStart(2, "0");
-  const diaHoy = String(hoy.getDate()).padStart(2, "0");
-  return yearHoy + "-" + mesHoy + "-" + diaHoy;
-}
+import { fechaHoy } from "../fechas";
 
 function EntryForm({ onCrear }) {
     const [fecha, setFecha] = useState(fechaHoy);
