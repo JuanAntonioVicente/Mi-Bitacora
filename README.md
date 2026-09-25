@@ -171,6 +171,10 @@ Este es mi primer proyecto completo fuera de la formación. Lo construí desde c
 - Desplegar frontend, backend y base de datos en servicios distintos, con variables de entorno y CORS.
 - Convertir una web en una PWA instalable que funciona sin conexión.
 
+## Mejoras añadidas
+
+- Próximamente: añadida la sección próximamente en el apartado resumen y filtros dependiendo de en que apartado se encuentre.
+
 ## Próximas mejoras
 
 - Estadísticas: horas totales y puntuación media por lista.
