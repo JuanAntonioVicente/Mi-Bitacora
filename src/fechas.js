@@ -1,6 +1,6 @@
 export function formatearFecha(fecha) {
-    const partes = fecha.split("-");
-    return partes[2] + "/" + partes[1] + "/" + partes[0];
+  const partes = fecha.split("-");
+  return partes[2] + "/" + partes[1] + "/" + partes[0];
 }
 
 export function fechaHoy() {
@@ -9,4 +9,8 @@ export function fechaHoy() {
   const mesHoy = String(hoy.getMonth() + 1).padStart(2, "0");
   const diaHoy = String(hoy.getDate()).padStart(2, "0");
   return yearHoy + "-" + mesHoy + "-" + diaHoy;
+}
+
+export function claveMes(mes) {
+  return mes.getFullYear() + "-" + String(mes.getMonth() + 1).padStart(2, "0");
 }

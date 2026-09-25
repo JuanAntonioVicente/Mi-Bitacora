@@ -9,7 +9,7 @@ import EntryCard from "./components/EntryCard.jsx";
 // import { obtenerListas, obtenerEntradas, apiCrearLista, apiCrearEntrada, apiBorrarLista, apiBorrarEntrada, apiEditarLista, apiEditarEntradas } from "./api.js";
 import { obtenerListas, obtenerEntradas, apiCrearLista, apiCrearEntrada, apiBorrarLista, apiBorrarEntrada, apiEditarLista, apiEditarEntradas, reemplazarDatos } from "./local.js";
 import Logo from "./components/Logo.jsx";
-import { fechaHoy } from "./fechas.js";
+import { fechaHoy, claveMes } from "./fechas.js";
 
 function App() {
   const [listas, setListas] = useState([]);
@@ -44,11 +44,10 @@ function App() {
         }
       })
   }
-  const actual = mes.getFullYear() + "-" + String(mes.getMonth() + 1).padStart(2, "0");
   let entradasFiltradas = entradas
     .filter((entrada) => entrada.listaId === listaSeleccionada);
   if (filtroEntradas === "mes") {
-    entradasFiltradas = entradasFiltradas.filter((entrada) => entrada.fecha.slice(0, 7) === actual)
+    entradasFiltradas = entradasFiltradas.filter((entrada) => entrada.fecha.slice(0, 7) === claveMes(mes))
   }
   if (filtroEntradas === "proximamente") {
     entradasFiltradas = entradasFiltradas.filter((entrada) => entrada.fecha > fechaHoy())

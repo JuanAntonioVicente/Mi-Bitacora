@@ -1,8 +1,7 @@
 import "./Summary.css";
-import { fechaHoy } from "../fechas";
+import { fechaHoy, claveMes } from "../fechas";
 
 function Summary({ listas, entradas, mes, onSeleccionar }) {
-    const actual = mes.getFullYear() + "-" + String(mes.getMonth() + 1).padStart(2, "0");
     return (
         <>
             {entradas.length > 0 && (
@@ -34,7 +33,7 @@ function Summary({ listas, entradas, mes, onSeleccionar }) {
                     <div className="summary-titulo">Resumen {mes.toLocaleDateString("es-ES", { month: "long", year: "numeric" })}</div>
                     <div className="summary-grid">
                         {listas.map((lista) => {
-                            const total = entradas.filter((entrada) => entrada.listaId === lista.id && entrada.fecha.slice(0, 7) === actual).length;
+                            const total = entradas.filter((entrada) => entrada.listaId === lista.id && entrada.fecha.slice(0, 7) === claveMes(mes)).length;
                             return (
                                 <div className="summary-card" key={lista.id} onClick={() => onSeleccionar(lista.id, "mes")}>
                                     <div className="summary-nombre">{lista.nombre}</div>
