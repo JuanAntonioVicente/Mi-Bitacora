@@ -169,6 +169,12 @@
   color: #E24B4A;
 }
 
+@media (max-width: 600px) {
+  .entradas-quitar-filtro {
+    vertical-align: -4px;
+  }
+}
+
 @media (hover: none) {
   .app-datos-boton-peligro {
     border-color: rgba(226, 75, 74, 0.35);
