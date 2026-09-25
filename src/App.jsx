@@ -54,6 +54,13 @@ function App() {
     entradasFiltradas = entradasFiltradas.filter((entrada) => entrada.fecha > fechaHoy())
   }
   entradasFiltradas = entradasFiltradas.sort((a, b) => b.fecha.localeCompare(a.fecha));
+  let textoFiltro = "";
+  if (filtroEntradas === "proximamente") {
+    textoFiltro = " · Próximamente";
+  }
+  if (filtroEntradas === "mes") {
+    textoFiltro = " · " + mes.toLocaleDateString("es-ES", { month: "long", year: "numeric" });
+  }
   function editarLista(id, nuevoNombre, nuevoColor) {
     apiEditarLista(id, nuevoNombre, nuevoColor)
       .then((listaEditada) =>
@@ -151,7 +158,7 @@ function App() {
       <ListForm onCrear={agregarLista} />
       {listaSeleccionada ? (
         <div className="entradas-panel" style={{ borderLeft: "3px solid " + listaActual.color }} ref={panelRef}>
-          <div className="entradas-titulo">Entradas de {listaActual.nombre}</div>
+          <div className="entradas-titulo">Entradas de {listaActual.nombre}{textoFiltro}</div>
           {entradasFiltradas.map((entrada) => (
             <EntryCard key={entrada.id} entrada={entrada} onBorrar={borrarEntrada}
               onEditar={editarEntradas} entradaEnEdicion={entradaEnEdicion} setEntradaEnEdicion={setEntradaEnEdicion} />
