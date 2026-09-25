@@ -12,7 +12,7 @@ function Summary({ listas, entradas, mes, onSeleccionar }) {
                         {listas.map((lista) => {
                             const total = entradas.filter((entrada) => entrada.listaId === lista.id).length;
                             return (
-                                <div className="summary-card" key={lista.id} onClick={() => onSeleccionar(lista.id)}>
+                                <div className="summary-card" key={lista.id} onClick={() => onSeleccionar(lista.id, "todas")}>
                                     <div className="summary-nombre">{lista.nombre}</div>
                                     <div className="summary-total" style={{ color: lista.color }}>{total}</div>
                                 </div>
@@ -24,7 +24,7 @@ function Summary({ listas, entradas, mes, onSeleccionar }) {
                         {listas.map((lista) => {
                             const total = entradas.filter((entrada) => entrada.listaId === lista.id && entrada.fecha > fechaHoy()).length;
                             return (
-                                <div className="summary-card" key={lista.id} onClick={() => onSeleccionar(lista.id)}>
+                                <div className="summary-card" key={lista.id} onClick={() => onSeleccionar(lista.id, "proximamente")}>
                                     <div className="summary-nombre">{lista.nombre}</div>
                                     <div className="summary-total" style={{ color: lista.color }}>{total}</div>
                                 </div>
@@ -36,7 +36,7 @@ function Summary({ listas, entradas, mes, onSeleccionar }) {
                         {listas.map((lista) => {
                             const total = entradas.filter((entrada) => entrada.listaId === lista.id && entrada.fecha.slice(0, 7) === actual).length;
                             return (
-                                <div className="summary-card" key={lista.id} onClick={() => onSeleccionar(lista.id)}>
+                                <div className="summary-card" key={lista.id} onClick={() => onSeleccionar(lista.id, "mes")}>
                                     <div className="summary-nombre">{lista.nombre}</div>
                                     <div className="summary-total" style={{ color: lista.color }}>{total}</div>
                                 </div>

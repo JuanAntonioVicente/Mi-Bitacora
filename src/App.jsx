@@ -9,6 +9,7 @@ import EntryCard from "./components/EntryCard.jsx";
 // import { obtenerListas, obtenerEntradas, apiCrearLista, apiCrearEntrada, apiBorrarLista, apiBorrarEntrada, apiEditarLista, apiEditarEntradas } from "./api.js";
 import { obtenerListas, obtenerEntradas, apiCrearLista, apiCrearEntrada, apiBorrarLista, apiBorrarEntrada, apiEditarLista, apiEditarEntradas, reemplazarDatos } from "./local.js";
 import Logo from "./components/Logo.jsx";
+import { fechaHoy } from "./fechas.js";
 
 function App() {
   const [listas, setListas] = useState([]);
@@ -18,6 +19,7 @@ function App() {
   const [entradaEnEdicion, setEntradaEnEdicion] = useState(null);
   const [listaEnEdicion, setListaEnEdicion] = useState(null);
   const [avisoAlImportar, setAvisoAlImportar] = useState(false);
+  const [filtroEntradas, setFiltroEntradas] = useState("todas");
   function agregarLista(nombre, color) {
     apiCrearLista(nombre, color)
       .then((nuevaLista) => setListas([...listas, nuevaLista]));
@@ -42,9 +44,16 @@ function App() {
         }
       })
   }
-  const entradasFiltradas = entradas
-    .filter((entrada) => entrada.listaId === listaSeleccionada)
-    .sort((a, b) => b.fecha.localeCompare(a.fecha));
+  const actual = mes.getFullYear() + "-" + String(mes.getMonth() + 1).padStart(2, "0");
+  let entradasFiltradas = entradas
+    .filter((entrada) => entrada.listaId === listaSeleccionada);
+  if (filtroEntradas === "mes") {
+    entradasFiltradas = entradasFiltradas.filter((entrada) => entrada.fecha.slice(0, 7) === actual)
+  }
+  if (filtroEntradas === "proximamente") {
+    entradasFiltradas = entradasFiltradas.filter((entrada) => entrada.fecha > fechaHoy())
+  }
+  entradasFiltradas = entradasFiltradas.sort((a, b) => b.fecha.localeCompare(a.fecha));
   function editarLista(id, nuevoNombre, nuevoColor) {
     apiEditarLista(id, nuevoNombre, nuevoColor)
       .then((listaEditada) =>
@@ -60,8 +69,9 @@ function App() {
   }
   const panelRef = useRef(null);
   const importarRef = useRef(null);
-  function seleccionarYSubir(id) {
+  function seleccionarYSubir(id, filtro) {
     setListaSeleccionada(id)
+    setFiltroEntradas(filtro)
     panelRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
   }
 
