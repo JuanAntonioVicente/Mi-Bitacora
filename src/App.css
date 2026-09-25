@@ -151,6 +151,24 @@
   z-index: 100;
 }
 
+.entradas-quitar-filtro {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: 6px;
+  color: #c9706f;
+  font-family: inherit;
+  font-size: 20px;
+  line-height: 1;
+  vertical-align: -2px;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.entradas-quitar-filtro:hover {
+  color: #E24B4A;
+}
+
 @media (hover: none) {
   .app-datos-boton-peligro {
     border-color: rgba(226, 75, 74, 0.35);

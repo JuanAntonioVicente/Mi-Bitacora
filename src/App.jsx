@@ -55,7 +55,7 @@ function App() {
   entradasFiltradas = entradasFiltradas.sort((a, b) => b.fecha.localeCompare(a.fecha));
   let textoFiltro = "";
   if (filtroEntradas === "proximamente") {
-    textoFiltro = " · Próximamente";
+    textoFiltro = " · próximamente";
   }
   if (filtroEntradas === "mes") {
     textoFiltro = " · " + mes.toLocaleDateString("es-ES", { month: "long", year: "numeric" });
@@ -157,7 +157,11 @@ function App() {
       <ListForm onCrear={agregarLista} />
       {listaSeleccionada ? (
         <div className="entradas-panel" style={{ borderLeft: "3px solid " + listaActual.color }} ref={panelRef}>
-          <div className="entradas-titulo">Entradas de {listaActual.nombre}{textoFiltro}</div>
+          <div className="entradas-titulo">Entradas de {listaActual.nombre}{textoFiltro}
+            {filtroEntradas !== "todas" && (
+              <button className="entradas-quitar-filtro" onClick={() => setFiltroEntradas("todas")}>×</button>
+            )}
+          </div>
           {entradasFiltradas.map((entrada) => (
             <EntryCard key={entrada.id} entrada={entrada} onBorrar={borrarEntrada}
               onEditar={editarEntradas} entradaEnEdicion={entradaEnEdicion} setEntradaEnEdicion={setEntradaEnEdicion} />
